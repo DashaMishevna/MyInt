@@ -8,7 +8,21 @@ namespace ConsoleApplication1
 {
     class MyInt
     {
-        public MyInt()
+        //public string str;
+        //public int number;
+        //public byte b;
+
+        public MyInt(string str)
+        {
+
+        }
+
+        public MyInt(int number)
+        {
+
+        }
+
+        public MyInt(byte b)
         {
 
         }
@@ -17,5 +31,56 @@ namespace ConsoleApplication1
         {
 
         }
+
+        public void subtract()
+        {
+
+        }
+
+        public void multiply()
+        {
+
+        }
+
+        public void divide()
+        {
+
+        }
+
+        public void max()
+        {
+
+        }
+
+        public void min()
+        {
+
+        }
+
+        public void abs()
+        {
+
+        }
+
+        public void compareTo()
+        {
+
+        }
+
+        public void gcd()
+        {
+
+        }
+
+        public void toString()
+        {
+
+        }
+
+        public void longValue()
+        {
+
+        }
+
     }
 }
