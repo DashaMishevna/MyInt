@@ -17,13 +17,13 @@ namespace ConsoleApplication1
             MyInt b = new MyInt(154);
             MyInt c = new MyInt("-230");
             MyInt d = new MyInt();
-            MyInt e = new MyInt(e);
+            //MyInt e = new MyInt(e);
             MyInt g = new MyInt("222222222222222222222222222222222222222222222");
         }
         [TestCase]
         public void testAdd()
         {
-            MyInt c = a.add(b);
+            //MyInt c = a.add(b);
         }
     }
 }

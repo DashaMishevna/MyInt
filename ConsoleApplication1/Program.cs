@@ -13,7 +13,7 @@ namespace ConsoleApplication1
         {
             MyInt a = new MyInt(154);   
             MyInt b = new MyInt("-230");     
-            MyInt c = a.add(b);      
+            //MyInt c = a.add(b);      
         }
     }
 }

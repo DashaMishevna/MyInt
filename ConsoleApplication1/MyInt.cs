@@ -8,25 +8,40 @@ namespace ConsoleApplication1
 {
     class MyInt
     {
-        public string number;
+        public string number = "";
         public bool isNegative = false;
 
         public MyInt() { }
 
-        public MyInt(string str) //проверка на буквы
+        public MyInt(string str)
         {
-            if (str[0] == '-') isNegative = true;
-            this.number = str;
+            try
+            {
+                int value;
+                for (int i = 1; i < str.Length; i++)
+                    value = Convert.ToInt32(str[i]);
+                if (str[0] == '-') isNegative = true;
+                this.number = str;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка ввода цифры");
+            }
         }
 
         public MyInt(long number)
         {
+            if (number < 0) isNegative = true;
             this.number = number.ToString();
         }
 
-        public MyInt(byte[] b) // проверка на отрицат
+        public MyInt(byte[] b) // проверка на отрицат такая?
         {
-            this.number = b;
+            if (b[0] == '-') isNegative = true;
+            foreach (var x in b)
+            {
+                number = number + x;
+            }
         }
 
         public string add(MyInt str) //второе число может быть больше первого надо переделать
@@ -42,7 +57,7 @@ namespace ConsoleApplication1
                     if (mind.ToString().Length == 2)
                     {
                         result = mind.ToString().Substring(1, 1) + result;
-                        mind = mind.ToString().Substring(0, 1);
+                        mind = Convert.ToInt32(mind.ToString().Substring(0, 1));
                     }
                     else
                     {
@@ -75,7 +90,6 @@ namespace ConsoleApplication1
                // if ((isNegative && str.isNegative == false && str.number.Length <) доделать
             }
             return result;
-            
         }
 
         public void subtract()
@@ -103,9 +117,10 @@ namespace ConsoleApplication1
 
         }
 
-        public void abs()
+        public string abs()
         {
-
+            if (isNegative) number.Substring(1, number.Length - 1);
+            return number;
         }
 
         public void compareTo()
@@ -118,14 +133,26 @@ namespace ConsoleApplication1
 
         }
 
-        public void toString()
+        public string toString()
         {
-
+            return number;
         }
 
-        public void longValue()
+        public long longValue() //дописать для отрицат
         {
-
+            if (number.Length >= 20)
+            {
+                string long_num = "9223372036854775807";
+                string result = "";
+                number = number.Substring(0, 19);
+                for (int i = 0; i < number.Length; i++)
+                {
+                    if (number[i] <= long_num[i]) result = result + number[i];
+                }
+                if (result.Length == 19) return Convert.ToInt64(result);
+                else { return Convert.ToInt64(number.Substring(0,18)); }
+            }
+            return Convert.ToInt64(number);
         }
 
     }
