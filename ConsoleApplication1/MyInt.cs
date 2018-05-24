@@ -8,12 +8,12 @@ namespace ConsoleApplication1
 {
     class MyInt
     {
-        public string number = "";
+        public string number {get;set;}
         public bool isNegative = false;
 
         public MyInt() { }
 
-        public MyInt(string str)
+        public MyInt(string str) // отрезпать - и переделать
         {
             try
             {
@@ -37,14 +37,15 @@ namespace ConsoleApplication1
 
         public MyInt(byte[] b) // проверка на отрицат такая?
         {
-            if (b[0] == '-') isNegative = true;
+            number = "";
+            if (b[0] == 0) isNegative = true;
             foreach (var x in b)
             {
                 number = number + x;
             }
         }
 
-        public string add(MyInt str) //второе число может быть больше первого надо переделать
+        public MyInt add(MyInt str) //второе число может быть больше первого надо переделать 
         {
             string result = "";
             int mind = 0;
@@ -66,7 +67,7 @@ namespace ConsoleApplication1
                     }
                     j--;
                 }
-                if (isNegative) result = "-" + result;
+                if (isNegative) str.isNegative = true;
             }
             else if((isNegative && str.isNegative == false) || (isNegative == false && str.isNegative))
             {
@@ -89,7 +90,8 @@ namespace ConsoleApplication1
                 }
                // if ((isNegative && str.isNegative == false && str.number.Length <) доделать
             }
-            return result;
+            str.number = result;
+            return str;
         }
 
         public void subtract()
@@ -107,9 +109,20 @@ namespace ConsoleApplication1
 
         }
 
-        public void max()
+        public MyInt max(MyInt str)
         {
-
+            if (number.Length > str.number.Length)
+            {
+                str.number = number;
+                return str;
+            }
+            else if (number.Length < str.number.Length) return str;
+            else
+            {
+                //for ()
+                //{ }
+                return str;
+            }
         }
 
         public void min()
@@ -138,16 +151,22 @@ namespace ConsoleApplication1
             return number;
         }
 
-        public long longValue() //дописать для отрицат
+        public long longValue()
         {
-            if (number.Length >= 20)
+            if (number.Length >= 19)
             {
-                string long_num = "9223372036854775807";
+                string long_num = "9223372036854775807"; 
                 string result = "";
                 number = number.Substring(0, 19);
                 for (int i = 0; i < number.Length; i++)
                 {
-                    if (number[i] <= long_num[i]) result = result + number[i];
+                    if (isNegative && number[i] <= 8 && i == 19)
+                    {
+                        result = result + number[i];
+                        break;
+                    } 
+                    if (Convert.ToInt32(number[i]) <= Convert.ToInt32(long_num[i])) result = result + number[i];
+                    
                 }
                 if (result.Length == 19) return Convert.ToInt64(result);
                 else { return Convert.ToInt64(number.Substring(0,18)); }
