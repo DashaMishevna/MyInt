@@ -11,12 +11,14 @@ namespace ConsoleApplication1
         
         static void Main(string[] args)
         {
-            MyInt a = new MyInt(-1254);   
-            MyInt b = new MyInt("2");  
-           // MyInt c = a.add(b);
-            MyInt d = a.multiply(b);
+            MyInt a = new MyInt(-5986551111111114);  
+            MyInt b = new MyInt("5777777777777777777788888888888888888888888888885");
+            MyInt d = a.add(b);
+            //int c = a.compareTo(b);
             Console.WriteLine(d.number);
+            //Console.WriteLine(c);
             Console.ReadKey();    
+
         }
     }
 }

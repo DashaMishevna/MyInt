@@ -13,7 +13,7 @@ namespace ConsoleApplication1
 
         public MyInt() { }
 
-        public MyInt(string str) // отрезпать - и переделать
+        public MyInt(string str) 
         {
             try
             {
@@ -58,54 +58,78 @@ namespace ConsoleApplication1
         {
             string result = "";
             int mind = 0;
-            int j = number.Length-1;
+            if (number.Length > str.number.Length) str.number = new String('0', (number.Length - str.number.Length)) + str.number;
+            else number = new String('0', (str.number.Length - number.Length)) + number;
+
             if ((isNegative && str.isNegative) || (isNegative == false && str.isNegative == false))
             {
-                for (int i = str.number.Length - 1; i == 1; i--)
-                {
-                    mind = mind + Convert.ToInt32(number[j]) + Convert.ToInt32(str.number[i]);
-                    if (mind.ToString().Length == 2)
-                    {
-                        result = mind.ToString().Substring(1, 1) + result;
-                        mind = Convert.ToInt32(mind.ToString().Substring(0, 1));
-                    }
-                    else
-                    {
-                        result = mind.ToString() + result;
-                        mind = 0;
-                    }
-                    j--;
-                }
-                if (isNegative) str.isNegative = true;
+                result = sum(str, result, mind);
             }
             else if((isNegative && str.isNegative == false) || (isNegative == false && str.isNegative))
             {
-                int subt = 0;
-                j = number.Length - 1;
-                for (int i = str.number.Length - 1; i == 1; i--)
-                {
-                    mind = number[j - 1] - subt;
-                    if (number[j] < str.number[i])
-                    {
-                        subt = 1;
-                        result = ((10 + Convert.ToInt32(number[j])) - Convert.ToInt32(str.number[i])).ToString() + result;
-                    }
-                    else
-                    {
-                        subt = 0;
-                        result = (Convert.ToInt32(number[j]) - Convert.ToInt32(str.number[i])).ToString() + result;
-                    }
-                    j--;
-                }
-               // if ((isNegative && str.isNegative == false && str.number.Length <) доделать
+                result = sub(str, result, mind);
             }
             str.number = result;
             return str;
         }
 
-        public void subtract() //Вычитание
+        private string sum (MyInt str, string result, int mind)
         {
+            
+            for (int i = number.Length - 1; i >= 0; i--)
+            {
+                mind = mind + Convert.ToInt32(number[i].ToString()) + Convert.ToInt32(str.number[i].ToString());
+                if (mind.ToString().Length == 2)
+                {
+                    result = mind.ToString().Substring(1, 1) + result;
+                    mind = Convert.ToInt32(mind.ToString().Substring(0, 1));
+                }
+                else
+                {
+                    result = mind.ToString() + result;
+                    mind = 0;
+                }
+            }
+            if (mind != 0) result = mind + result;
+            if (isNegative) result = "-" + result;
+            return result;
+        }
 
+        private string sub(MyInt str, string result, int mind)     
+        {
+            int subt = 0;
+            string min = str.number;
+            string max = number;
+            string negativ = "";
+
+            if (compare(str) == -1)  
+            {
+                min = number;
+                max = str.number;
+                if (str.isNegative) negativ = "-";
+            }
+            // min - это МАКС
+            for (int i = number.Length - 1; i >= 0; i--)
+            {
+                if (min[i] > max[i] - subt)
+                {
+                    result = ((10 + Convert.ToInt32(max[i])-subt) - Convert.ToInt32(min[i])).ToString() + result;
+                    subt = 1;
+                }
+                else
+                {
+                    result = (Convert.ToInt32(max[i]-subt) - Convert.ToInt32(min[i])).ToString() + result;
+                    subt = 0;
+                }
+            }
+            if (result[0].ToString() == "0") result = result.Substring(1,result.Length-1);
+            result = negativ + result;
+            return result;
+        }
+
+        public MyInt subtract(MyInt str) //Вычитание
+        {
+            return str;
         }
 
         public MyInt multiply(MyInt str) //Умножение
@@ -178,7 +202,7 @@ namespace ConsoleApplication1
 
         }
 
-        public MyInt max(MyInt str)
+        public MyInt max(MyInt str) //НЕ СМОТРИМ ЗНАК
         {
             if (compare(str)==-1) return str;
 
@@ -189,7 +213,7 @@ namespace ConsoleApplication1
             };
         }
 
-        public MyInt min(MyInt str)
+        public MyInt min(MyInt str) //НЕ СМОТРИМ ЗНАК
         {
             if (compare(str) == 1)
             {
@@ -200,7 +224,7 @@ namespace ConsoleApplication1
             else return str;
         }
 
-        private int compare(MyInt str)
+        private int compare(MyInt str) //НЕ СМОТРИМ ЗНАК 00000000000000000000
         {
 
             if (number.Length > str.number.Length) return 1;
@@ -211,8 +235,11 @@ namespace ConsoleApplication1
             {
                 for (int i= 0; i < number.Length ; i++)
                 {
-                    if (number[i]>str.number[i]) return 1;
-                    
+                    if (number[i] > str.number[i])
+                    {
+                        return 1;
+                    }
+
                     else if (number[i] < str.number[i]) return -1;
                 }
                 return 0;
@@ -226,14 +253,22 @@ namespace ConsoleApplication1
             return number;
         }
 
-        public int compareTo(MyInt str)
+        public int compareTo(MyInt str) //НЕ СМОТРИМ ЗНАК
         {
             return compare(str);
         }
 
-        public void gcd() // Наибольший общий делитель
+        public MyInt gcd(MyInt str) // Наибольший общий делитель
         {
-
+            while (str.number != number)
+            {
+                if (max(str) == str)
+                {
+                    str = subtract(str);
+                }
+                //number = subtract(str.number);
+            }
+            return str;
         }
 
         public string toString()
