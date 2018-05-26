@@ -132,6 +132,20 @@ namespace ConsoleApplication1
 
         public MyInt subtract(MyInt str) //Вычитание
         {
+            string result = "";
+            int mind = 0;
+            if (number.Length > str.number.Length) str.number = new String('0', (number.Length - str.number.Length)) + str.number;
+            else number = new String('0', (str.number.Length - number.Length)) + number;
+
+            if ((isNegative && str.isNegative) || (isNegative == false && str.isNegative == false))
+            {
+                result = sub(str, result, mind);
+            }
+            else if ((isNegative && str.isNegative == false) || (isNegative == false && str.isNegative))
+            {
+                result = sum(str, result, mind);
+            }
+            str.number = result;
             return str;
         }
 
@@ -279,13 +293,16 @@ namespace ConsoleApplication1
 
         public MyInt gcd(MyInt str) // Наибольший общий делитель
         {
-            while (str.number != number)
+            Console.WriteLine(str.number);
+            MyInt num = new MyInt(number);
+            while (str.number != num.number)
             {
-                if (max(str) == str)
+                if (compareTo(str) == -1)
                 {
                     str = subtract(str);
+                    //Console.WriteLine(str.number);
                 }
-                //number = subtract(str.number);
+                else num = str.subtract(num);
             }
             return str;
         }
