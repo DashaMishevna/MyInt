@@ -11,9 +11,9 @@ namespace ConsoleApplication1
         
         static void Main(string[] args)
         {
-            MyInt a = new MyInt(-5986551111111114);  
-            MyInt b = new MyInt("5777777777777777777788888888888888888888888888885");
-            MyInt d = a.add(b);
+            MyInt a = new MyInt(-9);  
+            MyInt b = new MyInt("1");
+            MyInt d = a.multiply(b);
             //int c = a.compareTo(b);
             Console.WriteLine(d.number);
             //Console.WriteLine(c);

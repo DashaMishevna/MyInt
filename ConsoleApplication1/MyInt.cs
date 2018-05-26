@@ -101,13 +101,16 @@ namespace ConsoleApplication1
             string min = str.number;
             string max = number;
             string negativ = "";
+            if (isNegative) negativ = "-";
 
             if (compare(str) == -1)  
             {
                 min = number;
                 max = str.number;
                 if (str.isNegative) negativ = "-";
+                else negativ = "";
             }
+
             // min - это МАКС
             for (int i = number.Length - 1; i >= 0; i--)
             {
@@ -202,29 +205,39 @@ namespace ConsoleApplication1
 
         }
 
-        public MyInt max(MyInt str) //НЕ СМОТРИМ ЗНАК
+        public MyInt max(MyInt str) 
         {
-            if (compare(str)==-1) return str;
-
-            else 
+            if (compareTo(str) == -1)
             {
+                if (str.isNegative) str.number = "-" + str.number;
+                return str;
+            }
+
+            else
+            {
+                if (isNegative) number = "-" + number;
                 str.number = number;
                 return str;
             };
         }
 
-        public MyInt min(MyInt str) //НЕ СМОТРИМ ЗНАК
+        public MyInt min(MyInt str) 
         {
-            if (compare(str) == 1)
+            if (compareTo(str) == -1)
             {
+                if (isNegative) number = "-" + number;
                 str.number = number;
                 return str;
-            } 
+            }
 
-            else return str;
+            else
+            {
+                if (str.isNegative) str.number = "-" + str.number;
+                return str;
+            }
         }
 
-        private int compare(MyInt str) //НЕ СМОТРИМ ЗНАК 00000000000000000000
+        private int compare(MyInt str) //Чисто длина
         {
 
             if (number.Length > str.number.Length) return 1;
@@ -253,9 +266,15 @@ namespace ConsoleApplication1
             return number;
         }
 
-        public int compareTo(MyInt str) //НЕ СМОТРИМ ЗНАК
+        public int compareTo(MyInt str)
         {
-            return compare(str);
+
+            if (isNegative && str.isNegative == false) return -1;
+            if (isNegative==false && str.isNegative) return 1;
+            if (isNegative == false && str.isNegative == false) return compare(str);
+            else return (compare(str) * (-1));
+
+
         }
 
         public MyInt gcd(MyInt str) // Наибольший общий делитель
