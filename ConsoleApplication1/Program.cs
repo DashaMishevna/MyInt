@@ -11,9 +11,11 @@ namespace ConsoleApplication1
         
         static void Main(string[] args)
         {
-            MyInt a = new MyInt(154);   
-            MyInt b = new MyInt("-230");  
-            MyInt c = a.add(b);      
+            MyInt a = new MyInt("99999999999999999999999999999999");
+            MyInt b = new MyInt("999999999999999999999999999999999999999999");
+            MyInt c = a.multiply(b);
+            Console.WriteLine(c.number);
+            Console.ReadKey();
         }
     }
 }

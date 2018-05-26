@@ -99,9 +99,64 @@ namespace ConsoleApplication1
 
         }
 
-        public void multiply()
+        public MyInt multiply(MyInt str)
         {
-
+            string result = "";
+            string sum_shift = "";
+            string shift = "";
+            int mind_shift = 0;
+            string mind = "0";
+            int check = 0;
+            foreach (char x in str.number.Reverse())
+            {
+                check++;
+                shift = "";
+                mind = "0";
+                foreach (char y in number.Reverse())
+                {
+                    mind = (Convert.ToInt32(mind) + Convert.ToInt32(x.ToString()) * Convert.ToInt32(y.ToString())).ToString();
+                    if (mind.Length == 2)
+                    {
+                        shift = mind.Substring(1, 1) + shift;
+                        mind = mind.Substring(0, 1);
+                    }
+                    else
+                    {
+                        shift = mind + shift;
+                        mind = "0";
+                    }
+                }
+                if (mind != "0") shift = mind + shift;
+                try { mind = result.Substring(result.Length-check,check);  }
+                catch (Exception)
+                {
+                    result = shift;
+                    check--;
+                    continue;
+                }
+                result = result.Substring(0,result.Length-check); // число без последней цифры
+                result = new String('0', (shift.Length - result.Length)) + result;
+                sum_shift = "";
+                mind_shift = 0;
+                for (int i = shift.Length-1; i >= 0; i--)
+                {
+                    mind_shift = mind_shift + (Convert.ToInt32(result[i].ToString()) + Convert.ToInt32(shift[i].ToString()));
+                    if (mind_shift.ToString().Length == 2)
+                    {
+                        sum_shift = mind_shift.ToString().Substring(1, 1) + sum_shift;
+                        mind_shift = Convert.ToInt32(mind_shift.ToString().Substring(0, 1));
+                    }
+                    else
+                    {
+                        sum_shift = mind_shift.ToString() + sum_shift;
+                        mind_shift = 0;
+                    }
+                }
+                if (mind_shift != 0) sum_shift = mind_shift + sum_shift;
+                result = sum_shift + mind;
+            }
+            str.number = result;
+            return str;
         }
 
         public void divide()
