@@ -13,7 +13,7 @@ namespace ConsoleApplication1
         [TestCase]
         public void testCreate()
         {
-            MyInt a = new MyInt("d");
+            MyInt a = new MyInt("-5");
             MyInt b = new MyInt(154);
             MyInt c = new MyInt("-230");
             MyInt d = new MyInt();

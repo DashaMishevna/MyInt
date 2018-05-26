@@ -18,20 +18,29 @@ namespace ConsoleApplication1
             try
             {
                 int value;
-                for (int i = 1; i < str.Length; i++)
+                if (str[0].ToString() == "-")
+                {
+                    isNegative = true;
+                    str = str.Substring(1, str.Length-1);
+                }
+                for (int i = 0; i < str.Length; i++)
                     value = Convert.ToInt32(str[i]);
-                if (str[0] == '-') isNegative = true;
+                
                 this.number = str;
             }
-            catch (Exception e)
+            catch 
             {
-                Console.WriteLine("Ошибка ввода цифры");
+                Console.WriteLine("Ошибка ввода цифры");  
             }
         }
 
         public MyInt(long number)
         {
-            if (number < 0) isNegative = true;
+            if (number < 0)
+            {
+                isNegative = true;
+                number = number*(-1);
+            }
             this.number = number.ToString();
         }
 
@@ -39,9 +48,9 @@ namespace ConsoleApplication1
         {
             number = "";
             if (b[0] == 0) isNegative = true;
-            foreach (var x in b)
+            for (int i = 1; i<b.Length; i++)
             {
-                number = number + x;
+                number = number + b[i];
             }
         }
 
@@ -99,9 +108,69 @@ namespace ConsoleApplication1
 
         }
 
-        public void multiply() //Умножение
+        public MyInt multiply(MyInt str) //Умножение
         {
-
+            string result = "";
+            string sum_shift = "";
+            string shift = "";
+            int mind_shift = 0;
+            string mind = "0";
+            int check = 0;
+            foreach (char x in str.number.Reverse())
+            {
+                check++;
+                shift = "";
+                mind = "0";
+                foreach (char y in number.Reverse())
+                {
+                    mind = (Convert.ToInt32(mind) + Convert.ToInt32(x.ToString()) * Convert.ToInt32(y.ToString())).ToString();
+                    if (mind.Length == 2)
+                    {
+                        shift = mind.Substring(1, 1) + shift;
+                        mind = mind.Substring(0, 1);
+                    }
+                    else
+                    {
+                        shift = mind + shift;
+                        mind = "0";
+                    }
+                }
+                if (mind != "0") shift = mind + shift;
+                try { mind = result.Substring(result.Length - check, check); }
+                catch (Exception)
+                {
+                    result = shift;
+                    check--;
+                    continue;
+                }
+                result = result.Substring(0, result.Length - check); // число без последней цифры
+                result = new String('0', (shift.Length - result.Length)) + result;
+                sum_shift = "";
+                mind_shift = 0;
+                for (int i = shift.Length - 1; i >= 0; i--)
+                {
+                    mind_shift = mind_shift + (Convert.ToInt32(result[i].ToString()) + Convert.ToInt32(shift[i].ToString()));
+                    if (mind_shift.ToString().Length == 2)
+                    {
+                        sum_shift = mind_shift.ToString().Substring(1, 1) + sum_shift;
+                        mind_shift = Convert.ToInt32(mind_shift.ToString().Substring(0, 1));
+                    }
+                    else
+                    {
+                        sum_shift = mind_shift.ToString() + sum_shift;
+                        mind_shift = 0;
+                    }
+                }
+                if (mind_shift != 0) sum_shift = mind_shift + sum_shift;
+                result = sum_shift + mind;
+            }
+            str.number = result;
+            if (str.isNegative && isNegative == false || str.isNegative == false && isNegative)
+            {
+                str.number ="-" + result;
+            }
+            
+            return str;
         }
 
         public void divide() //Деление
