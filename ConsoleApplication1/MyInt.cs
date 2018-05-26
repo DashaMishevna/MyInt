@@ -94,41 +94,62 @@ namespace ConsoleApplication1
             return str;
         }
 
-        public void subtract()
+        public void subtract() //Вычитание
         {
 
         }
 
-        public void multiply()
+        public void multiply() //Умножение
         {
 
         }
 
-        public void divide()
+        public void divide() //Деление
         {
 
         }
 
         public MyInt max(MyInt str)
         {
-            if (number.Length > str.number.Length)
+            if (compare(str)==-1) return str;
+
+            else 
             {
                 str.number = number;
                 return str;
-            }
-            else if (number.Length < str.number.Length) return str;
-            else
-            {
-                //for ()
-                //{ }
-                return str;
-            }
+            };
         }
 
-        public void min()
+        public MyInt min(MyInt str)
+        {
+            if (compare(str) == 1)
+            {
+                str.number = number;
+                return str;
+            } 
+
+            else return str;
+        }
+
+        private int compare(MyInt str)
         {
 
+            if (number.Length > str.number.Length) return 1;
+       
+            else if (number.Length < str.number.Length) return -1;
+           
+            else
+            {
+                for (int i= 0; i < number.Length ; i++)
+                {
+                    if (number[i]>str.number[i]) return 1;
+                    
+                    else if (number[i] < str.number[i]) return -1;
+                }
+                return 0;
+            }
         }
+  
 
         public string abs()
         {
@@ -136,12 +157,12 @@ namespace ConsoleApplication1
             return number;
         }
 
-        public void compareTo()
+        public int compareTo(MyInt str)
         {
-
+            return compare(str);
         }
 
-        public void gcd()
+        public void gcd() // Наибольший общий делитель
         {
 
         }
