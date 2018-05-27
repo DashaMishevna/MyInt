@@ -284,7 +284,6 @@ namespace ConsoleApplication1
             }
         }
   
-
         public MyInt abs()
         {
                 MyInt str = new MyInt(number);
