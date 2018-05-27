@@ -334,7 +334,7 @@ namespace ConsoleApplication1
                 number = number.Substring(0, 19);
                 for (int i = 0; i < number.Length; i++)
                 {
-                    if (isNegative && number[i] <= 8 && i == 19)
+                    if (isNegative && number[i].ToString() == "8" && i == 18)
                     {
                         result = result + number[i];
                         break;
@@ -344,18 +344,17 @@ namespace ConsoleApplication1
                 }
                 if (result.Length == 19)
                 {
-                    if (isNegative)
-                        result = "-" + result;
+                    if (isNegative) result = "-" + result;
                     return Convert.ToInt64(result);
                 }
 
                 else
                 {
-                    if (isNegative)
-                        number = "-" + number;
+                    if (isNegative) number = "-" + number;
                     return Convert.ToInt64(number.Substring(0, 19));
                 }
             }
+            if (isNegative) number = "-" + number;
             return Convert.ToInt64(number);
         }
 

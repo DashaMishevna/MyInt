@@ -11,12 +11,14 @@ namespace ConsoleApplication1
         
         static void Main(string[] args)
         {
-            MyInt a = new MyInt(-10);
+            MyInt a = new MyInt("-123456789123456789123156");
+            //byte[] a = new byte[] { 0, 5,0,0 };
+            //MyInt c = new MyInt(a);
             MyInt b = new MyInt("-100");
             //byte[] w = new byte();
-            MyInt d = a.gcd(b);
+            long d = a.longValue();
             //int c = a.compareTo(b);
-            Console.WriteLine(d.number);
+            Console.WriteLine(d);
             //Console.WriteLine(c);
             Console.ReadKey();    
 
