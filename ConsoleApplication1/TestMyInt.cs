@@ -31,7 +31,23 @@ namespace ConsoleApplication1
             MyInt a1 = new MyInt("10000000000000000000");
             MyInt b1 = new MyInt(-99999999999999);
             MyInt c1 = a1.add(b1);
+        }
+
+        [TestCase]
+        public void testSubstract()
+        {
+            MyInt a = new MyInt("55555555");
+            MyInt b = new MyInt(111111);
+            MyInt c = a.subtract(b);
+            MyInt a1 = new MyInt("-10000000000000000000");
+            MyInt b1 = new MyInt(-99999999999999);
+            MyInt c1 = a1.subtract(b1);
+            MyInt a2 = new MyInt("-10000000000000000000");
+            MyInt b2 = new MyInt(-99999999999999);
+            MyInt c2 = a1.subtract(b1);
 
         }
+
+
     }
 }
