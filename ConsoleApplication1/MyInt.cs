@@ -24,9 +24,8 @@ namespace ConsoleApplication1
                     str = str.Substring(1, str.Length-1);
                 }
                 for (int i = 0; i < str.Length; i++)
-                    value = Convert.ToInt32(str[i]);
-                
-                this.number = str;
+                    value = Convert.ToInt32(str[i].ToString());
+                this.number = str; 
             }
             catch 
             {
@@ -36,6 +35,7 @@ namespace ConsoleApplication1
 
         public MyInt(long number)
         {
+            
             if (number < 0)
             {
                 isNegative = true;
@@ -134,6 +134,7 @@ namespace ConsoleApplication1
         {
             string result = "";
             int mind = 0;
+            MyInt end_result = new MyInt();
             if (number.Length > str.number.Length) str.number = new String('0', (number.Length - str.number.Length)) + str.number;
             else number = new String('0', (str.number.Length - number.Length)) + number;
 
@@ -145,8 +146,18 @@ namespace ConsoleApplication1
             {
                 result = sum(str, result, mind);
             }
-            str.number = result;
-            return str;
+
+            while (number[0].ToString() == "0" && number.Length!=1)
+            {
+                number = number.Substring(1, number.Length-1);
+            }
+
+            while (str.number[0].ToString() == "0" && str.number.Length != 1)
+            {
+                str.number = str.number.Substring(1, str.number.Length - 1);
+            }
+            end_result.number = result;
+            return end_result;
         }
 
         public MyInt multiply(MyInt str) //Умножение
@@ -274,10 +285,10 @@ namespace ConsoleApplication1
         }
   
 
-        public string abs()
+        public MyInt abs()
         {
-            if (isNegative) number.Substring(1, number.Length - 1);
-            return number;
+                MyInt str = new MyInt(number);
+                return str;   
         }
 
         public int compareTo(MyInt str)
@@ -287,24 +298,26 @@ namespace ConsoleApplication1
             if (isNegative==false && str.isNegative) return 1;
             if (isNegative == false && str.isNegative == false) return compare(str);
             else return (compare(str) * (-1));
-
-
         }
 
         public MyInt gcd(MyInt str) // Наибольший общий делитель
         {
-            Console.WriteLine(str.number);
+            bool s = str.isNegative;
             MyInt num = new MyInt(number);
-            while (str.number != num.number)
+            num.isNegative = false;
+            str.isNegative = false;
+
+            while (num.compareTo(str) !=0)
             {
-                if (compareTo(str) == -1)
+                if (num.compareTo(str) == -1)
                 {
-                    str = subtract(str);
-                    //Console.WriteLine(str.number);
+                    str = str.subtract(num);
                 }
-                else num = str.subtract(num);
+                else num = num.subtract(str);
             }
+            if (s) str.isNegative = true;
             return str;
+           
         }
 
         public string toString()
@@ -329,8 +342,19 @@ namespace ConsoleApplication1
                     if (Convert.ToInt32(number[i]) <= Convert.ToInt32(long_num[i])) result = result + number[i];
                     
                 }
-                if (result.Length == 19) return Convert.ToInt64(result);
-                else { return Convert.ToInt64(number.Substring(0,18)); }
+                if (result.Length == 19)
+                {
+                    if (isNegative)
+                        result = "-" + result;
+                    return Convert.ToInt64(result);
+                }
+
+                else
+                {
+                    if (isNegative)
+                        number = "-" + number;
+                    return Convert.ToInt64(number.Substring(0, 19));
+                }
             }
             return Convert.ToInt64(number);
         }

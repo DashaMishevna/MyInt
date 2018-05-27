@@ -11,8 +11,9 @@ namespace ConsoleApplication1
         
         static void Main(string[] args)
         {
-            MyInt a = new MyInt(12);  
-            MyInt b = new MyInt("46");
+            MyInt a = new MyInt(-10);
+            MyInt b = new MyInt("-100");
+            //byte[] w = new byte();
             MyInt d = a.gcd(b);
             //int c = a.compareTo(b);
             Console.WriteLine(d.number);
