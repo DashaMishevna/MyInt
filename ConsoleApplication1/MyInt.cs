@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    class MyInt
+    public class MyInt
     {
         public string number {get;set;}
         public bool isNegative = false;
