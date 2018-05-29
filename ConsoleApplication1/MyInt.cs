@@ -11,6 +11,8 @@ namespace ConsoleApplication1
         public string number {get;set;}
         public bool isNegative = false;
 
+        //Предлагаю ничего не менять, а для теста создание, сделать методы..чтоль которые возвращают то то число, которое поступило на вход
+
         public MyInt() { }
 
         public MyInt(string str) 
