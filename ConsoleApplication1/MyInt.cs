@@ -11,8 +11,6 @@ namespace ConsoleApplication1
         public string number {get;set;}
         public bool isNegative = false;
 
-        //Предлагаю ничего не менять, а для теста создание, сделать методы..чтоль которые возвращают то то число, которое поступило на вход
-
         public MyInt() { }
 
         public MyInt(string str) 
@@ -20,12 +18,8 @@ namespace ConsoleApplication1
             try
             {
                 int value;
-                if (str[0].ToString() == "-")
-                {
-                    isNegative = true;
-                    str = str.Substring(1, str.Length-1);
-                }
-                for (int i = 0; i < str.Length; i++)
+                if (str[0].ToString() == "-") isNegative = true;
+                for (int i = 1; i < str.Length; i++)
                     value = Convert.ToInt32(str[i].ToString());
                 this.number = str; 
             }
@@ -38,26 +32,28 @@ namespace ConsoleApplication1
         public MyInt(long number)
         {
             
-            if (number < 0)
-            {
-                isNegative = true;
-                number = number*(-1);
-            }
+            if (number < 0)isNegative = true;
             this.number = number.ToString();
         }
 
-        public MyInt(byte[] b) // проверка на отрицат такая?
+        public MyInt(byte[] b)
         {
             number = "";
-            if (b[0] == 0) isNegative = true;
-            for (int i = 1; i<b.Length; i++)
+            if (b[0] == 1)
+            {
+                isNegative = true;
+                number = "-";
+            }
+            for (int i = 1; i < b.Length; i++)
             {
                 number = number + b[i];
             }
         }
 
-        public MyInt add(MyInt str) //второе число может быть больше первого надо переделать 
+        public MyInt add(MyInt str) 
         {
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
             string result = "";
             int mind = 0;
             if (number.Length > str.number.Length) str.number = new String('0', (number.Length - str.number.Length)) + str.number;
@@ -112,8 +108,6 @@ namespace ConsoleApplication1
                 if (str.isNegative) negativ = "-";
                 else negativ = "";
             }
-
-            // min - это МАКС
             for (int i = number.Length - 1; i >= 0; i--)
             {
                 if (min[i] > max[i] - subt)
@@ -134,6 +128,8 @@ namespace ConsoleApplication1
 
         public MyInt subtract(MyInt str) //Вычитание
         {
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
             string result = "";
             int mind = 0;
             MyInt end_result = new MyInt();
@@ -164,6 +160,8 @@ namespace ConsoleApplication1
 
         public MyInt multiply(MyInt str) //Умножение
         {
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
             string result = "";
             string sum_shift = "";
             string shift = "";
@@ -197,7 +195,7 @@ namespace ConsoleApplication1
                     check--;
                     continue;
                 }
-                result = result.Substring(0, result.Length - check); // число без последней цифры
+                result = result.Substring(0, result.Length - check);
                 result = new String('0', (shift.Length - result.Length)) + result;
                 sum_shift = "";
                 mind_shift = 0;
@@ -288,13 +286,16 @@ namespace ConsoleApplication1
   
         public MyInt abs()
         {
-                MyInt str = new MyInt(number);
-                return str;   
+            MyInt str = new MyInt(number);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
+           
+            return str;   
         }
 
         public int compareTo(MyInt str)
         {
-
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
             if (isNegative && str.isNegative == false) return -1;
             if (isNegative==false && str.isNegative) return 1;
             if (isNegative == false && str.isNegative == false) return compare(str);
@@ -303,6 +304,8 @@ namespace ConsoleApplication1
 
         public MyInt gcd(MyInt str) // Наибольший общий делитель
         {
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
+            if (str.number.First().ToString() == "-") str.number = str.number.Substring(1, str.number.Length - 1);
             bool s = str.isNegative;
             MyInt num = new MyInt(number);
             num.isNegative = false;
@@ -323,11 +326,14 @@ namespace ConsoleApplication1
 
         public string toString()
         {
+
+            if (number.First().ToString() != "-" && isNegative == true) number = "-" + number;
             return number;
         }
 
         public long longValue()
         {
+            if (number.First().ToString() == "-") number = number.Substring(1, number.Length - 1);
             if (number.Length >= 19)
             {
                 string long_num = "9223372036854775807"; 
@@ -351,7 +357,11 @@ namespace ConsoleApplication1
 
                 else
                 {
-                    if (isNegative) number = "-" + number;
+                    if (isNegative)
+                    {
+                        number = "-" + number;
+                        return Convert.ToInt64(number.Substring(0, 20));
+                    }
                     return Convert.ToInt64(number.Substring(0, 19));
                 }
             }

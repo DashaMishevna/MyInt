@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    class DEQueue<T>
+    public class DEQueue<T>
     {
         private List<T> queue = new List<T>();
         public int Count => queue.Count;
 
         public void pushBack(T item) //Добавление элемента в конец
         {
-            //Console.WriteLine(item);
             if (item == null)
             {
                 Console.WriteLine("Элемент пустой");

@@ -55,7 +55,6 @@
     <Compile Include="MyInt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestMyInt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
