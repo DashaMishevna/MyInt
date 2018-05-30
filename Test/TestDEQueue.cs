@@ -35,7 +35,7 @@ namespace Test
             b.pushBack("abc");
             b.pushBack("cba");
             Assert.IsTrue(b.Count == 2);
-            Assert.AreEqual("cba", b.back());
+            Assert.AreEqual("cba", b.Tail);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace Test
             b.pushBack("abc");
             b.pushBack("cba");
             Assert.IsTrue(b.Count == 2);
-            Assert.AreEqual("abc", b.front());
+            Assert.AreEqual("abc", b.Head);
         }
 
         [TestMethod]

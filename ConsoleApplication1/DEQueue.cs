@@ -10,6 +10,8 @@ namespace ConsoleApplication1
     {
         private List<T> queue = new List<T>();
         public int Count => queue.Count;
+        public T Head => queue.FirstOrDefault();
+        public T Tail => queue.LastOrDefault();
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -20,7 +22,6 @@ namespace ConsoleApplication1
         {
             if (item == null)
             {
-                Console.WriteLine("Элемент пустой");
                 return;
             }
             queue.Add(item);
@@ -29,7 +30,6 @@ namespace ConsoleApplication1
         {
             if (item == null)
             {
-                Console.WriteLine("Элемент пустой");
                 return;
             }
             queue.Reverse();
@@ -54,7 +54,6 @@ namespace ConsoleApplication1
             var item = queue.LastOrDefault();
             if (item == null)
             {
-                Console.WriteLine("Очередь пуста");
                 return item;
             }
             return item;
@@ -64,7 +63,6 @@ namespace ConsoleApplication1
             var item = queue.FirstOrDefault();
             if (item == null)
             {
-                Console.WriteLine("Очередь пуста");
                 return item;
             }
             return item;
@@ -82,7 +80,6 @@ namespace ConsoleApplication1
             var item = queue.LastOrDefault();
             if (item == null)
             {
-                Console.WriteLine("Очередь пуста");
                 return default(T[]);
             }
             T[] arr = queue.ToArray();

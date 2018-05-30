@@ -122,6 +122,7 @@ namespace ConsoleApplication1
                 }
             }
             if (result[0].ToString() == "0") result = result.Substring(1,result.Length-1);
+            if (compare(str) == -1 && isNegative == false && str.isNegative == false) negativ = "-";
             result = negativ + result;
             return result;
         }

@@ -36,47 +36,46 @@ namespace Test
             Assert.AreEqual("-101", e.number);
             Assert.AreEqual("222222222222222222222222222222222222222222222", g.number);
         }
-        
 
         [TestMethod]
         public void testAdd()
         {
-            MyInt a = new MyInt("-5");
-            MyInt b = new MyInt(1);
+            MyInt a = new MyInt("-15");
+            MyInt b = new MyInt(11);
 
             MyInt a1 = new MyInt("10");
-            MyInt b1 = new MyInt(-9);
+            MyInt b1 = new MyInt(-19);
 
-            MyInt a2 = new MyInt("0");
-            MyInt b2 = new MyInt(7);
+            MyInt a2 = new MyInt("100");
+            MyInt b2 = new MyInt(700);
 
-            MyInt a3 = new MyInt("-3");
-            MyInt b3 = new MyInt(-11);
+            MyInt a3 = new MyInt("-23");
+            MyInt b3 = new MyInt(-111);
 
             Assert.AreEqual("-4", a.add(b).number);
-            Assert.AreEqual("1", a1.add(b1).number);
-            Assert.AreEqual("7", a2.add(b2).number);
-            Assert.AreEqual("-14", a3.add(b3).number);
+            Assert.AreEqual("-9", a1.add(b1).number);
+            Assert.AreEqual("800", a2.add(b2).number);
+            Assert.AreEqual("-134", a3.add(b3).number);
         }
 
         [TestMethod]
         public void testSubstract()
         {
-            MyInt a = new MyInt("5");
-            MyInt b = new MyInt(1);
+            MyInt a = new MyInt("15");
+            MyInt b = new MyInt(91);
 
             MyInt a1 = new MyInt("13");
             MyInt b1 = new MyInt(-3);
             
-            MyInt a2 = new MyInt("-5");
+            MyInt a2 = new MyInt("-785");
             MyInt b2 = new MyInt(1);
             
             MyInt a3 = new MyInt("-6");
             MyInt b3 = new MyInt(-2);
 
-            Assert.AreEqual("4", a.subtract(b).number);
+            Assert.AreEqual("-76", a.subtract(b).number);
             Assert.AreEqual("16", a1.subtract(b1).number);
-            Assert.AreEqual("-6", a2.subtract(b2).number);
+            Assert.AreEqual("-786", a2.subtract(b2).number);
             Assert.AreEqual("-4", a3.subtract(b3).number);
         }
 
