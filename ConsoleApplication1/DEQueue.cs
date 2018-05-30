@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
-    public class DEQueue<T>
+    public class DEQueue<T> //: IEnumerable<T>
     {
         private List<T> queue = new List<T>();
         public int Count => queue.Count;
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return queue.GetEnumerator();
+        }
 
         public void pushBack(T item) //Добавление элемента в конец
         {
@@ -74,6 +79,12 @@ namespace ConsoleApplication1
         }
         public T[] toArray() //Преобразование в массив
         {
+            var item = queue.LastOrDefault();
+            if (item == null)
+            {
+                Console.WriteLine("Очередь пуста");
+                return default(T[]);
+            }
             T[] arr = queue.ToArray();
             return arr;
         }
